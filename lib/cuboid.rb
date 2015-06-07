@@ -34,14 +34,14 @@ class Cuboid
     max_length = z + length
 
     vertices = []
-    vertices << [x, y, z]
-    vertices << [x, max_height, z]
-    vertices << [max_width, y, z]
-    vertices << [max_width, max_height, z]
-    vertices << [x, y, max_length]
-    vertices << [x, max_height, max_length]
-    vertices << [max_width, y, max_length]
-    vertices << [max_width, max_height, max_length]
+    vertices << [x, y, z] # front-bottom-left
+    vertices << [x, max_height, z] # front-top-left
+    vertices << [max_width, y, z] # front-bottom-right
+    vertices << [max_width, max_height, z] # front-top-right
+    vertices << [x, y, max_length] # rear-bottom-left
+    vertices << [x, max_height, max_length] # rear-top-left
+    vertices << [max_width, y, max_length] # rear-bottom-right
+    vertices << [max_width, max_height, max_length] # rear-top-right
 
     vertices
   end
