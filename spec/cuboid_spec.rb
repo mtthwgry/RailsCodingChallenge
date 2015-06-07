@@ -100,6 +100,31 @@ describe Cuboid do
   end
 
   describe '#intersects?' do
+    let(:cuboid) { Cuboid.new(width: 10, length: 10, height: 3) }
+    let(:intersecting_cuboid) { Cuboid.new(width: 4, length: 6, height: 5) }
+    let(:nonintersecting_cuboid) { Cuboid.new(y: 3, width: 4, length: 10, height: 2) }
+
+    context "when given another Cuboid with the same origin" do
+      it "is true" do
+        expect(cuboid.intersects?(intersecting_cuboid)).to be true
+      end
+    end
+
+    context "when given another Cuboid with a different origin" do
+      context "that isn't intersecting" do
+        it "is false" do
+          expect(cuboid.intersects?(nonintersecting_cuboid)).to be false
+        end
+      end
+
+      context "that is intersecting" do
+        before { intersecting_cuboid.move_to!(3, 2, 1) }
+
+        it "is true" do
+          expect(cuboid.intersects?(intersecting_cuboid)).to be true
+        end
+      end
+    end
   end
 
 end
