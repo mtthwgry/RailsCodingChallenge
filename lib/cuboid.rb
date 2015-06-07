@@ -1,5 +1,5 @@
 class Cuboid
-  attr_reader :width, :length, :height, :origin
+  attr_reader :width, :length, :height
   attr_accessor :x, :y, :z
 
   def initialize(options={})
