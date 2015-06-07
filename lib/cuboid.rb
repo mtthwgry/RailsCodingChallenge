@@ -19,9 +19,30 @@ class Cuboid
   end
 
   def vertices
+    @vertices ||= generate_vertices
   end
 
   #returns true if the two cuboids intersect each other.  False otherwise.
   def intersects?(other)
+  end
+
+  private
+
+  def generate_vertices
+    max_height = y + height
+    max_width = x + width
+    max_length = z + length
+
+    vertices = []
+    vertices << [x, y, z]
+    vertices << [x, max_height, z]
+    vertices << [max_width, y, z]
+    vertices << [max_width, max_height, z]
+    vertices << [x, y, max_length]
+    vertices << [x, max_height, max_length]
+    vertices << [max_width, y, max_length]
+    vertices << [max_width, max_height, max_length]
+
+    vertices
   end
 end
