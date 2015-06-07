@@ -1,8 +1,5 @@
 require 'cuboid'
 
-#This test is incomplete and, in fact, won't even run without errors.
-#  Do whatever you need to do to make it work and please add your own test cases for as many
-#  methods as you feel need coverage
 describe Cuboid do
   let(:cuboid) { Cuboid.new(x: 1, y: 2, z: 3, width: 5, length: 6, height: 7) }
 
@@ -43,20 +40,21 @@ describe Cuboid do
 
   describe '#move_to!' do
     it "changes the x origin to the specified coordinate" do
-      expect{ cuboid.move_to!(9, 10, 11) }.to change{cuboid.origin.x}.from(1).to(9)
+      expect{ cuboid.move_to!(9, 10, 11) }.to change{ cuboid.origin.x }.from(1).to(9)
     end
 
     it "changes the y origin to the specified coordinate" do
-      expect{ cuboid.move_to!(9, 10, 11) }.to change{cuboid.origin.y}.from(2).to(10)
+      expect{ cuboid.move_to!(9, 10, 11) }.to change{ cuboid.origin.y }.from(2).to(10)
     end
 
     it "changes the z origin to the specified coordinate" do
-      expect{ cuboid.move_to!(9, 10, 11) }.to change{cuboid.origin.z}.from(3).to(11)
+      expect{ cuboid.move_to!(9, 10, 11) }.to change{ cuboid.origin.z }.from(3).to(11)
     end
   end
 
   describe '#vertices' do
     let(:cuboid) { Cuboid.new(width: 4, length: 10, height: 2) }
+    let(:vertices) { cuboid.vertices.map(&:coordinates) }
 
     it "is an array" do
       expect(cuboid.vertices).to be_an(Array)
@@ -67,35 +65,35 @@ describe Cuboid do
     end
 
     it "has the front-bottom-left vertex" do
-      expect(cuboid.vertices).to include([0, 0, 0])
+      expect(vertices).to include [0, 0, 0]
     end
 
     it "has the front-top-left vertex" do
-      expect(cuboid.vertices).to include([0, 2, 0])
+      expect(vertices).to include [0, 2, 0]
     end
 
     it "has the front-bottom-right vertex" do
-      expect(cuboid.vertices).to include([4, 0, 0])
+      expect(vertices).to include [4, 0, 0]
     end
 
     it "has the front-top-right vertex" do
-      expect(cuboid.vertices).to include([4, 2, 0])
+      expect(vertices).to include [4, 2, 0]
     end
 
     it "has the rear-bottom-left vertex" do
-      expect(cuboid.vertices).to include([0, 0, 10])
+      expect(vertices).to include [0, 0, 10]
     end
 
     it "has the rear-top-left vertex" do
-      expect(cuboid.vertices).to include([0, 2, 10])
+      expect(vertices).to include [0, 2, 10]
     end
 
     it "has the rear-bottom-right vertex" do
-      expect(cuboid.vertices).to include([4, 0, 10])
+      expect(vertices).to include [4, 0, 10]
     end
 
     it "has the rear-top-right vertex" do
-      expect(cuboid.vertices).to include([4, 2, 10])
+      expect(vertices).to include [4, 2, 10]
     end
   end
 
