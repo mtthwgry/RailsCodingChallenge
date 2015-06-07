@@ -24,16 +24,13 @@ class Cuboid
 
   #returns true if the two cuboids intersect each other, false otherwise.
   def intersects?(other)
-    if origin == other.origin
-      return true
-    else
-      vertices.each do |vertex|
-        if vertex[0] > other.origin[0] && vertex[1] > other.origin[1] && vertex[2] > other.origin[2]
-          return true
-        end
+    vertices.each do |vertex|
+      if vertex[0] > other.x && vertex[1] > other.y && vertex[2] > other.z
+        return true
       end
     end
-    return false
+
+    false
   end
 
   def origin
