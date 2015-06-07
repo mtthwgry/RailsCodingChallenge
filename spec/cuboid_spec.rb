@@ -41,9 +41,17 @@ describe Cuboid do
     end
   end
 
-  describe '#move_to' do
-    it "changes the origin in the simple happy case" do
-      expect(cuboid.move_to!(1,2,3)).to be true
+  describe '#move_to!' do
+    it "changes the x origin to the specified coordinate" do
+      expect { cuboid.move_to!(9, 10, 11) }.to change{cuboid.x}.from(1).to(9)
+    end
+
+    it "changes the y origin to the specified coordinate" do
+      expect { cuboid.move_to!(9, 10, 11) }.to change{cuboid.y}.from(2).to(10)
+    end
+
+    it "changes the z origin to the specified coordinate" do
+      expect { cuboid.move_to!(9, 10, 11) }.to change{cuboid.z}.from(3).to(11)
     end
   end
 
