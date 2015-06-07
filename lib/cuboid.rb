@@ -22,8 +22,22 @@ class Cuboid
     @vertices ||= generate_vertices
   end
 
-  #returns true if the two cuboids intersect each other.  False otherwise.
+  #returns true if the two cuboids intersect each other, false otherwise.
   def intersects?(other)
+    if origin == other.origin
+      return true
+    else
+      vertices.each do |vertex|
+        if vertex[0] > other.origin[0] && vertex[1] > other.origin[1] && vertex[2] > other.origin[2]
+          return true
+        end
+      end
+    end
+    return false
+  end
+
+  def origin
+    vertices[0]
   end
 
   private
