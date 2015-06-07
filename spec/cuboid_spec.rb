@@ -59,7 +59,7 @@ describe Cuboid do
     let(:cuboid) { Cuboid.new(width: 4, length: 10, height: 2) }
 
     it "is an array" do
-      expect(cuboid.vertices).to be_an_array
+      expect(cuboid.vertices).to be_an(Array)
     end
 
     it "has 8 vertices" do
