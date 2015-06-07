@@ -115,6 +115,12 @@ describe Cuboid do
         it "is false" do
           expect(cuboid.intersects?(nonintersecting_cuboid)).to be false
         end
+
+        context "and has an origin greater than the other's origin" do
+          it "is false" do
+            expect(nonintersecting_cuboid.intersects?(cuboid)).to be true
+          end
+        end
       end
 
       context "that is intersecting" do
@@ -122,6 +128,12 @@ describe Cuboid do
 
         it "is true" do
           expect(cuboid.intersects?(intersecting_cuboid)).to be true
+        end
+
+        context "and has an origin greater than the other's origin" do
+          it "is true" do
+            expect(intersecting_cuboid.intersects?(cuboid)).to be true
+          end
         end
       end
     end
