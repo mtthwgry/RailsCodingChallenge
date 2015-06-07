@@ -55,6 +55,50 @@ describe Cuboid do
     end
   end
 
+  describe '#vertices' do
+    let(:cuboid) { Cuboid.new(width: 4, length: 10, height: 2) }
+
+    it "is an array" do
+      expect(cuboid.vertices).to be_an_array
+    end
+
+    it "has 8 vertices" do
+      expect(cuboid.vertices.length).to eq 8
+    end
+
+    it "has the front-bottom-left vertex" do
+      expect(cuboid.vertices).to include([0, 0, 0])
+    end
+
+    it "has the front-top-left vertex" do
+      expect(cuboid.vertices).to include([0, 2, 0])
+    end
+
+    it "has the front-bottom-right vertex" do
+      expect(cuboid.vertices).to include([4, 0, 0])
+    end
+
+    it "has the front-top-right vertex" do
+      expect(cuboid.vertices).to include([4, 2, 0])
+    end
+
+    it "has the rear-bottom-left vertex" do
+      expect(cuboid.vertices).to include([0, 0, 10])
+    end
+
+    it "has the rear-top-left vertex" do
+      expect(cuboid.vertices).to include([0, 2, 10])
+    end
+
+    it "has the rear-bottom-right vertex" do
+      expect(cuboid.vertices).to include([4, 0, 10])
+    end
+
+    it "has the rear-top-right vertex" do
+      expect(cuboid.vertices).to include([4, 2, 10])
+    end
+  end
+
   describe '#intersects?' do
   end
 
