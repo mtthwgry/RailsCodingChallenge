@@ -11,6 +11,10 @@ class Vertex
     x > other.x && y > other.y && z > other.z
   end
 
+  def <=(other)
+    x <= other.x && y <= other.y && z <= other.z
+  end
+
   def coordinates
     @coordinates ||= [x, y, z]
   end
