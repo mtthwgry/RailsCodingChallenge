@@ -3,38 +3,25 @@ require 'cuboid'
 describe Cuboid do
   let(:cuboid) { Cuboid.new(x: 1, y: 2, z: 3, width: 5, length: 6, height: 7) }
 
-  describe "Initialization" do
-    context "when not given an origin vertex" do
+  describe "when created" do
+    it "creates a Vertex object as its origin" do
+      expect(cuboid.origin).to be_a(Vertex)
+    end
+
+    context "and not given an origin vertex" do
       let(:cuboid) { Cuboid.new(width: 1, length: 1, height: 1) }
+
       it "sets x to a default coordinate" do
-        expect(cuboid.origin.x).to eq 0
+        expect(cuboid.origin.x).to eq(0)
       end
 
       it "sets y to a default coordinate" do
-        expect(cuboid.origin.y).to eq 0
+        expect(cuboid.origin.y).to eq(0)
       end
 
       it "sets z to a default coordinate" do
-        expect(cuboid.origin.z).to eq 0
+        expect(cuboid.origin.z).to eq(0)
       end
-    end
-  end
-
-  describe '#width' do
-    it "is readable" do
-      expect(cuboid.width).to eq 5
-    end
-  end
-
-  describe '#length' do
-    it "is readable" do
-      expect(cuboid.length).to eq 6
-    end
-  end
-
-  describe '#height' do
-    it "is readable" do
-      expect(cuboid.height).to eq 7
     end
   end
 
@@ -60,8 +47,12 @@ describe Cuboid do
       expect(cuboid.vertices).to be_an(Array)
     end
 
-    it "has 8 vertices" do
-      expect(cuboid.vertices.length).to eq 8
+    it "has 8 objects" do
+      expect(cuboid.vertices.length).to eq(8)
+    end
+
+    it "contains only Vertex objects" do
+      expect(cuboid.vertices).to all be_a(Vertex)
     end
 
     it "has the front-bottom-left vertex" do
@@ -104,19 +95,19 @@ describe Cuboid do
 
     context "when given another Cuboid with the same origin" do
       it "is true" do
-        expect(cuboid.intersects?(intersecting_cuboid)).to be true
+        expect(cuboid.intersects?(intersecting_cuboid)).to be(true)
       end
     end
 
     context "when given another Cuboid with a different origin" do
       context "that isn't intersecting" do
         it "is false" do
-          expect(cuboid.intersects?(nonintersecting_cuboid)).to be false
+          expect(cuboid.intersects?(nonintersecting_cuboid)).to be(false)
         end
 
-        context "and has an origin greater than the other's origin" do
+        context "when swapped with the other cuboid" do
           it "is false" do
-            expect(nonintersecting_cuboid.intersects?(cuboid)).to be true
+            expect(nonintersecting_cuboid.intersects?(cuboid)).to be(false)
           end
         end
       end
@@ -125,12 +116,12 @@ describe Cuboid do
         before { intersecting_cuboid.move_to!(3, 2, 1) }
 
         it "is true" do
-          expect(cuboid.intersects?(intersecting_cuboid)).to be true
+          expect(cuboid.intersects?(intersecting_cuboid)).to be(true)
         end
 
-        context "and has an origin greater than the other's origin" do
+        context "when swapped with the other cuboid" do
           it "is true" do
-            expect(intersecting_cuboid.intersects?(cuboid)).to be true
+            expect(intersecting_cuboid.intersects?(cuboid)).to be(true)
           end
         end
       end
