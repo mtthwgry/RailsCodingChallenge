@@ -41,3 +41,5 @@ If you have any questions, please don't hesitate to contact me at tim.cull@touch
 
 --Tim
 
+## Completed by [Matthew Gray](http://www.linkedin.com/in/mtthwgry)
+[graymatthew3 (at) gmail (dot) com](mailto:graymatthew3@gmail.com)
