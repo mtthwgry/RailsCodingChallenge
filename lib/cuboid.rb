@@ -1,21 +1,25 @@
+require 'vertex'
+
 class Cuboid
   attr_reader :width, :length, :height
-  attr_accessor :x, :y, :z
+  attr_writer :vertices
+  attr_accessor :origin
 
   def initialize(options={})
-    @x = options.fetch(:x, 0)
-    @y = options.fetch(:y, 0)
-    @z = options.fetch(:z, 0)
+    @origin = Vertex.new(
+      x: options.fetch(:x, 0),
+      y: options.fetch(:y, 0),
+      z: options.fetch(:z, 0)
+    )
 
-    @width = options.fetch(:width)
+    @width  = options.fetch(:width)
     @length = options.fetch(:length)
     @height = options.fetch(:height)
   end
 
   def move_to!(x, y, z)
-    self.x = x
-    self.y = y
-    self.z = z
+    self.origin = Vertex.new(x: x, y: y, z: z)
+    vertices = generate_vertices
   end
 
   def vertices
@@ -24,35 +28,30 @@ class Cuboid
 
   #returns true if the two cuboids intersect each other, false otherwise.
   def intersects?(other)
-    vertices.each do |vertex|
-      if vertex[0] > other.x && vertex[1] > other.y && vertex[2] > other.z
-        return true
-      end
+    if origin <= other.origin
+      vertices.each { |vertex| return true if vertex > other.origin }
+    else
+      other.vertices.each { |vertex| return true if vertex > origin }
     end
-
     false
-  end
-
-  def origin
-    vertices[0]
   end
 
   private
 
   def generate_vertices
-    max_height = y + height
-    max_width = x + width
-    max_length = z + length
+    max_height = origin.y + height
+    max_width  = origin.x + width
+    max_length = origin.z + length
 
     vertices = []
-    vertices << [x, y, z] # front-bottom-left
-    vertices << [x, max_height, z] # front-top-left
-    vertices << [max_width, y, z] # front-bottom-right
-    vertices << [max_width, max_height, z] # front-top-right
-    vertices << [x, y, max_length] # rear-bottom-left
-    vertices << [x, max_height, max_length] # rear-top-left
-    vertices << [max_width, y, max_length] # rear-bottom-right
-    vertices << [max_width, max_height, max_length] # rear-top-right
+    vertices << Vertex.new(x: origin.x,  y: origin.y,   z: origin.z) # front-bottom-left
+    vertices << Vertex.new(x: origin.x,  y: max_height, z: origin.z) # front-top-left
+    vertices << Vertex.new(x: max_width, y: origin.y,   z: origin.z) # front-bottom-right
+    vertices << Vertex.new(x: max_width, y: max_height, z: origin.z) # front-top-right
+    vertices << Vertex.new(x: origin.x,  y: origin.y,   z: max_length) # rear-bottom-left
+    vertices << Vertex.new(x: origin.x,  y: max_height, z: max_length) # rear-top-left
+    vertices << Vertex.new(x: max_width, y: origin.y,   z: max_length) # rear-bottom-right
+    vertices << Vertex.new(x: max_width, y: max_height, z: max_length) # rear-top-right
 
     vertices
   end
