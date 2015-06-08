@@ -50,4 +50,14 @@ describe Vertex do
       end
     end
   end
+
+  describe '#coordinates' do
+    it "is an array" do
+      expect(vertex.coordinates).to be_an(Array)
+    end
+
+    it "is formatted as [x, y, z]" do
+      expect(vertex.coordinates).to eq [vertex.x, vertex.y, vertex.z]
+    end
+  end
 end
