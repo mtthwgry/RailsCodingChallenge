@@ -96,6 +96,8 @@ describe Cuboid do
     let(:cuboid) { Cuboid.new(width: 10, length: 10, height: 3) }
     let(:intersecting_cuboid) { Cuboid.new(width: 4, length: 6, height: 5) }
     let(:nonintersecting_cuboid) { Cuboid.new(y: 3, width: 4, length: 10, height: 2) }
+    let(:small_cuboid) { Cuboid.new(x: 10, width: 1, length: 1, height: 1) }
+    let(:large_cuboid) { Cuboid.new(z: 10, width: 40, length: 40, height: 40) }
 
     context "given another Cuboid with the same origin" do
       it "is true" do
@@ -109,9 +111,33 @@ describe Cuboid do
           expect(cuboid.intersects?(nonintersecting_cuboid)).to be(false)
         end
 
-        context "swapped with the other cuboid" do
+        context "and swapped with the other cuboid" do
           it "is false" do
             expect(nonintersecting_cuboid.intersects?(cuboid)).to be(false)
+          end
+        end
+
+        context "that is small" do
+          it "is false" do
+            expect(cuboid.intersects?(small_cuboid)).to be(false)
+          end
+
+          context "and swapped with the other cuboid" do
+            it "is false" do
+              expect(small_cuboid.intersects?(cuboid)).to be(false)
+            end
+          end
+        end
+
+        context "that is large" do
+          it "is false" do
+            expect(cuboid.intersects?(large_cuboid)).to be(false)
+          end
+
+          context "and swapped with the other cuboid" do
+            it "is false" do
+              expect(large_cuboid.intersects?(cuboid)).to be(false)
+            end
           end
         end
       end
@@ -123,7 +149,7 @@ describe Cuboid do
           expect(cuboid.intersects?(intersecting_cuboid)).to be(true)
         end
 
-        context "swapped with the other cuboid" do
+        context "and swapped with the other cuboid" do
           it "is true" do
             expect(intersecting_cuboid.intersects?(cuboid)).to be(true)
           end
