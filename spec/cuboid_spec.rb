@@ -3,9 +3,13 @@ require 'cuboid'
 describe Cuboid do
   let(:cuboid) { Cuboid.new(x: 1, y: 2, z: 3, width: 5, length: 6, height: 7) }
 
-  describe "when created" do
+  describe "creation" do
     it "creates a Vertex object as its origin" do
       expect(cuboid.origin).to be_a(Vertex)
+    end
+
+    it "has the proper coordinates at its origin" do
+      expect(cuboid.origin.coordinates).to eq [1, 2, 3]
     end
 
     context "and not given an origin vertex" do
@@ -93,19 +97,19 @@ describe Cuboid do
     let(:intersecting_cuboid) { Cuboid.new(width: 4, length: 6, height: 5) }
     let(:nonintersecting_cuboid) { Cuboid.new(y: 3, width: 4, length: 10, height: 2) }
 
-    context "when given another Cuboid with the same origin" do
+    context "given another Cuboid with the same origin" do
       it "is true" do
         expect(cuboid.intersects?(intersecting_cuboid)).to be(true)
       end
     end
 
-    context "when given another Cuboid with a different origin" do
+    context "given another Cuboid with a different origin" do
       context "that isn't intersecting" do
         it "is false" do
           expect(cuboid.intersects?(nonintersecting_cuboid)).to be(false)
         end
 
-        context "when swapped with the other cuboid" do
+        context "swapped with the other cuboid" do
           it "is false" do
             expect(nonintersecting_cuboid.intersects?(cuboid)).to be(false)
           end
@@ -119,7 +123,7 @@ describe Cuboid do
           expect(cuboid.intersects?(intersecting_cuboid)).to be(true)
         end
 
-        context "when swapped with the other cuboid" do
+        context "swapped with the other cuboid" do
           it "is true" do
             expect(intersecting_cuboid.intersects?(cuboid)).to be(true)
           end
