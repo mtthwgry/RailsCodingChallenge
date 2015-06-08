@@ -28,8 +28,10 @@ class Cuboid
 
   #returns true if the two cuboids intersect each other, false otherwise.
   def intersects?(other)
-    vertices.each do |vertex|
-      return true if vertex > other.origin
+    if origin <= other.origin
+      vertices.each { |vertex| return true if vertex > other.origin }
+    else
+      other.vertices.each { |vertex| return true if vertex > origin }
     end
     false
   end
